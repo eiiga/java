@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tomcat_test.datadto;
+
 public class test_servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -19,8 +21,17 @@ public class test_servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF8");
 		response.setContentType("text/html; charset=UTF8");
 		
-		  RequestDispatcher rd = request.getRequestDispatcher("result_test.jsp");
-          rd.forward(request, response);
+//		データを変数に代入
+		String name = request.getParameter("name");
+		
+//		datadtoにデータを格納
+		datadto data = new datadto();
+		data.SetWord(name);
+		request.setAttribute("Data", data);
+		
+//		result_test.jspにデータを送る
+		RequestDispatcher rd = request.getRequestDispatcher("result_test.jsp");
+        	rd.forward(request, response);
 
 	}
 }
