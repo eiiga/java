@@ -28,7 +28,7 @@ public class test_servlet extends HttpServlet {
 		datadto data = new datadto();
 		data.SetWord(name);
 		request.setAttribute("Data", data);
-		
+					
 //		result_test.jspにデータを送る
 		RequestDispatcher rd = request.getRequestDispatcher("result_test.jsp");
         	rd.forward(request, response);

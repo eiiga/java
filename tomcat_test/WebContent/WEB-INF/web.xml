@@ -20,5 +20,15 @@
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>testsql</servlet-name>
+    <servlet-class>tomcat_test.test_sql_conect</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>testsql</servlet-name>
+    <url-pattern>/testsql</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
 
