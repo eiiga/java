@@ -2,6 +2,7 @@ package org;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,12 +44,14 @@ public class Login extends HttpServlet {
 		data.setPassword(pass);
 		
 		UserDataDto dto = UserDataDAO.getInstance().login(data);
+		KanriDataDto kanri = new KanriDataDto();
+		ArrayList<KanriDataDto> kashidashi_info = KanriDataDAO.getInstance().t_top_select(kanri);
         
         if(dto.getUserID() == null){
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }else{
-
-            User.setAttribute("userinfo", dto);
+        	User.setAttribute("userinfo", dto);
+        	User.setAttribute("kashidashi_info", kashidashi_info);
             request.getRequestDispatcher("/top.jsp").forward(request, response);
         } 
 		
