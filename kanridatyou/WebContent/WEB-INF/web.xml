@@ -18,6 +18,11 @@
     <servlet-name>insert</servlet-name>
     <servlet-class>org.Kashidashi</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>insert_result</servlet-name>
+    <servlet-class>org.Kashidashi_result</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>login</servlet-name>
@@ -27,5 +32,10 @@
    <servlet-mapping>
     <servlet-name>insert</servlet-name>
     <url-pattern>/Kashidashi</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>insert_result</servlet-name>
+    <url-pattern>/Kashidashi/result</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -34,15 +34,17 @@
 		</div>
 			<h1><center>管理台帳</center></h1>
 	</header>
-	<select name="システム一覧">
-		<% for(int i = 0; i < system_info.size(); i++){ %>
-			<option value=<%=system_info.get(i).getSystemID() %>><%=system_info.get(i).getSystemName() %></option>
-		<%} %>
-	</select>
-	<input type="date" name="kashidashi_date"></input>
-	<input type="date" name="henkyaku_yoteibi" ></input>
-	<input type="text" name="ankenmei" value=""></input>
-	<input type="submit" name="kashidashi" value="貸出">
-	
+	<form method="post" action="http://localhost:8080/kanridatyou/Kashidashi/result">
+		<select name="systemID">
+			<% for(int i = 0; i < system_info.size(); i++){ %>
+				<option value=<%=system_info.get(i).getSystemID() %>><%=system_info.get(i).getSystemName() %></option>
+			<%} %>
+		</select>
+		<input type="date" name="kashidashi_date"></input>
+		<input type="date" name="henkyaku_yoteibi" ></input>
+		<input type="text" name="ankenmei" value=""></input>
+		<input type="hidden" name="user_name" value=<%=user_name %>>
+		<input type="submit" name="kashidashi" value="貸出">
+	</form>
 </body>
 </html>

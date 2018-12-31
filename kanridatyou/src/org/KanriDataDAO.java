@@ -80,4 +80,30 @@ public class KanriDataDAO {
     }
     }
     
+
+    public void system_insert(KanriDataDto kd) throws SQLException{
+     Connection con = null;
+     PreparedStatement st = null;
+     try{
+         con = DBManager.getConnection();
+         st =  con.prepareStatement("insert into T_KANRI(SYSTEM_NO, KASHIDASHI_DATE, HENKYAKU_YOTEI_DATE, HENKYAKU_DATE, USER_NAME, ANKEN_NAME, HENKYAKU_FLG)values(?, ?, ?, ?, ?, ?, ?);");
+         st.setInt(1, kd.getSystemID());
+         st.setString(2, kd.getKashidashiDate());
+         st.setString(3, kd.getHenkyakuyoteiDate());
+         st.setString(4, "");
+         st.setString(5, kd.getUserName());
+         st.setString(6, kd.getAnkenName());
+         st.setInt(7, 0);
+         st.executeUpdate();
+         System.out.println("insert completed");
+         
+     }catch(SQLException e){
+         System.out.println(e.getMessage());
+         throw new SQLException(e);
+     }finally{
+         if(con != null){
+             con.close();
+         }
+     }
+    } 
 }
