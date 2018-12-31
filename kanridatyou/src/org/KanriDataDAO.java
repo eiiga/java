@@ -34,7 +34,7 @@ public class KanriDataDAO {
             kashidashi_info.add(kanridto);
             kanridto = new KanriDataDto();
         }            
-        System.out.println("insert completed");
+        System.out.println("select completed");
         
         return kashidashi_info;
         
@@ -45,7 +45,39 @@ public class KanriDataDAO {
         if(con != null){
             con.close();
         }
+        
+    }
     }
     
+    public ArrayList<KanriDataDto> system_select(KanriDataDto kanri) throws SQLException{
+    Connection con = null;
+    PreparedStatement st = null;
+    try{
+        con = DBManager.getConnection();
+        st =  con.prepareStatement("select * from M_SYSTEM_NAME;");
+        ResultSet rs = st.executeQuery();
+        
+        KanriDataDto kanridto = new KanriDataDto();
+        ArrayList<KanriDataDto> system_info = new ArrayList<KanriDataDto>();
+        
+        while(rs.next()){
+            kanridto.setSystemID(rs.getInt(1));
+            kanridto.setSystemName(rs.getString(2));
+            system_info.add(kanridto);
+            kanridto = new KanriDataDto();
+        }            
+        System.out.println("select completed");
+        
+        return system_info;
+        
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+        throw new SQLException(e);
+    }finally{
+        if(con != null){
+            con.close();
+        }
     }
+    }
+    
 }

@@ -33,6 +33,11 @@
 		</div>
 			<h1><center>管理台帳</center></h1>
 	</header>
+	<form action="http://localhost:8080/kanridatyou/Kashidashi" method="POST">
+		<div style="position:absolute; top:20px; left:120px;">
+      			<input type="submit" value="貸出申請">
+    	</div>
+	</form>
 	<% if(Kashidashi_info.size() == 0){ 
 		String message = "<h2>貸出中のシステムはありません</h2>";%>
 		<%=message %>
