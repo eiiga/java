@@ -5,9 +5,10 @@
 	<head>
 	<meta charset="UTF-8">
 	<title>Login 管理</title>
+	<link rel="stylesheet" href="/kanridatyou/css/style_Biz_source.css">
 	</head>
 	<body>
-		<h1><center>管理台帳</center></h1>
+		<h1>管理台帳</h1>
 		<form action="http://localhost:8080/kanridatyou/login/check" method="POST">
 			<label style="position:absolute; top:120px; left:580px;">ログインID：</label>
     		<div style="position:absolute; top:120px; left:680px;">

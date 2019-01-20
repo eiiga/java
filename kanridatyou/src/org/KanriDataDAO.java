@@ -105,5 +105,30 @@ public class KanriDataDAO {
              con.close();
          }
      }
-    } 
+    }
+    
+    public void update(KanriDataDto kd) throws SQLException{
+        Connection con = null;
+        PreparedStatement st = null;
+        try{
+            con = DBManager.getConnection();
+            st =  con.prepareStatement("UPDATE T_KANRI SET SYSTEM_NO = ?, HENKYAKU_YOTEI_DATE = ?, USER_NAME = ?, ANKEN_NAME = ? WHERE HENKYAKU_FLG = ? AND KASHIDASHI_DATE = ?;");
+            st.setInt(1, kd.getSystemID());
+            st.setString(2, kd.getHenkyakuyoteiDate());
+            st.setString(3, kd.getUserName());
+            st.setString(4, kd.getAnkenName());
+            st.setInt(5, 0);
+            st.setString(6, kd.getKashidashiDate());
+            st.executeUpdate();
+            System.out.println("update completed");
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            throw new SQLException(e);
+        }finally{
+            if(con != null){
+                con.close();
+            }
+        }
+       }
 }

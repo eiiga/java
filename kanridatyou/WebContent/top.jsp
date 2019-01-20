@@ -38,16 +38,18 @@
       			<input type="submit" value="貸出申請">
     	</div>
 	</form>
+	<form action="http://localhost:8080/kanridatyou/update/conform" method="POST">
 	<% if(Kashidashi_info.size() == 0){ 
 		String message = "<h2>貸出中のシステムはありません</h2>";%>
 		<%=message %>
 	<% }else{ %>
 		<table border="1" width="500" >
 			<tr>
-				<th>システム名</th><th>貸出日</th><th>返却予定日</th><th>使用者</th><th>案件名</th>
+				<th></th><th>システム名</th><th>貸出日</th><th>返却予定日</th><th>使用者</th><th>案件名</th>
 			</tr>
 			<% for(int i = 0; i < Kashidashi_info.size(); i++){ %>
 			<tr>
+				<td><input type="radio" name="check" value=<%= i %> required></td>
 				<td><%=Kashidashi_info.get(i).getSystemName() %></td>
 				<td><%=Kashidashi_info.get(i).getKashidashiDate() %></td>
 				<td><%=Kashidashi_info.get(i).getHenkyakuyoteiDate() %></td>
@@ -57,5 +59,9 @@
 			<% } %>
 		</table>
 	<% } %>
+	<input type="submit" name="update" value="修正">
+	<br>
+	<input type="submit" name="return" value="返却">
+	</form>
 </body>
 </html>

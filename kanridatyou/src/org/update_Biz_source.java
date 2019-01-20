@@ -14,48 +14,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.UserDataDto;
-
 /**
- * Servlet implementation class Login
+ * Servlet implementation class update_Biz_source
  */
-public class Login extends HttpServlet {
+@WebServlet("/update_Biz_source")
+public class update_Biz_source extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	/**
-	 * @throws SQLException 
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF8");
-		
-		HttpSession User = request.getSession();
-		
-//		データを変数に代入
 		request.setCharacterEncoding("UTF-8");
-		String user_id = request.getParameter("LoginID");
-		String pass = request.getParameter("password");
-		
-//		UserDataDtoにデータを格納
-		UserDataDto data = new UserDataDto();
-		data.setUserID(user_id);
-		data.setPassword(pass);
-		
-		UserDataDto dto = UserDataDAO.getInstance().login(data);
-		KanriDataDto kanri = new KanriDataDto();
-		ArrayList<KanriDataDto> kashidashi_info = KanriDataDAO.getInstance().t_top_select(kanri);
-        
-        if(dto.getUserID() == null){
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }else{
-        	User.setAttribute("userinfo", dto);
-        	User.setAttribute("kashidashi_info", kashidashi_info);
-            request.getRequestDispatcher("/top.jsp").forward(request, response);
-        } 
-		
+	
+		//	データを変数に代入
+	int num = Integer.parseInt(request.getParameter("check"));
+	String update_flg = request.getParameter("update");
+	String return_flg = request.getParameter("return");
+	
+	KanriDataDto kanri = new KanriDataDto();
+	ArrayList<KanriDataDto> kashidashi_info = KanriDataDAO.getInstance().t_top_select(kanri);
+
+	request.setAttribute("resultData", kashidashi_info);
+	request.setAttribute("num", num);
+	
+	HttpSession User = request.getSession();
+	
+	KanriDataDto system = new KanriDataDto();
+	ArrayList<KanriDataDto> system_info = KanriDataDAO.getInstance().system_select(system);
+    
+    
+    User.setAttribute("system_info", system_info);
+
+
+	if(return_flg == null) {
+		request.getRequestDispatcher("/update.jsp").forward(request, response);
+	}
+	else if(update_flg == null) {
+		request.getRequestDispatcher("/henkyaku.jsp").forward(request, response);
 	}
 	
+	}
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -70,5 +71,4 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-	
 }

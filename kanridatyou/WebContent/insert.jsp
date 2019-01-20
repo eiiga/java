@@ -35,15 +35,24 @@
 			<h1><center>管理台帳</center></h1>
 	</header>
 	<form method="post" action="http://localhost:8080/kanridatyou/Kashidashi/result">
+		<p>システム名</p>
 		<select name="systemID">
 			<% for(int i = 0; i < system_info.size(); i++){ %>
 				<option value=<%=system_info.get(i).getSystemID() %>><%=system_info.get(i).getSystemName() %></option>
 			<%} %>
 		</select>
+		<br>
+		<p>貸出日</p>
 		<input type="date" name="kashidashi_date"></input>
+		<br>
+		<p>返却予定日</p>
 		<input type="date" name="henkyaku_yoteibi" ></input>
+		<br>
+		<p>案件名</p>
 		<input type="text" name="ankenmei" value=""></input>
+		<br>
 		<input type="hidden" name="user_name" value=<%=user_name %>>
+		<br>
 		<input type="submit" name="kashidashi" value="貸出">
 	</form>
 </body>
