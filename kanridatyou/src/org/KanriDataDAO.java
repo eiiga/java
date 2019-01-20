@@ -131,4 +131,56 @@ public class KanriDataDAO {
             }
         }
        }
+    
+    public KanriDataDto select_system_no(KanriDataDto kanri) throws SQLException{
+    Connection con = null;
+    PreparedStatement st = null;
+    try{
+        con = DBManager.getConnection();
+        st =  con.prepareStatement("select SYSTEM_NO from M_SYSTEM_NAME where SYSTEM_NAME = ?;");
+        st.setString(1, kanri.getSystemName());
+        ResultSet rs = st.executeQuery();
+        
+        KanriDataDto system_no = new KanriDataDto();
+        
+        while(rs.next()){
+        	system_no.setSystemID(rs.getInt(1));
+        }            
+        System.out.println("select completed");
+        
+        return system_no;
+        
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+        throw new SQLException(e);
+    }finally{
+        if(con != null){
+            con.close();
+        }
+        
+    }
+    }
+    
+    public void henkyaku(KanriDataDto kd) throws SQLException{
+        Connection con = null;
+        PreparedStatement st = null;
+        try{
+            con = DBManager.getConnection();
+            st =  con.prepareStatement("UPDATE T_KANRI SET HENKYAKU_DATE = ?, HENKYAKU_FLG = ? WHERE SYSTEM_NO = ? AND KASHIDASHI_DATE = ?;");
+            st.setString(1, kd.getHenkyakuDate());
+            st.setInt(2, 1);
+            st.setInt(3, kd.getSystemID());
+            st.setString(4, kd.getKashidashiDate());
+            st.executeUpdate();
+            System.out.println("update completed");
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            throw new SQLException(e);
+        }finally{
+            if(con != null){
+                con.close();
+            }
+        }
+       }
 }
